@@ -1,6 +1,21 @@
-name: helloworld # 插件唯一识别名，以 astrbot_plugin_ 前缀开头
-display_name: helloworld # 用于展示的名字，可以是方便人类阅读的名字（需要版本 >= v4.5.0，低版本不会报错，请放心填写）
-desc: AstrBot 插件示例。 # 插件简短描述
-version: v1.3.0 # 插件版本号。格式：v1.1.1 或者 v1.1
-author: Soulter # 作者
-repo: https://github.com/Soulter/helloworld # 插件的仓库地址
+name: astrbot_plugin_wenziyu
+display_name: 文字狱
+short_desc: 设置违禁词入站拦、出站兜底，基于底层代码，支持拼音谐音。
+desc: |
+  本插件 给 AstrBot 加了两道不依赖模型的硬闸门：
+  1. 指定用户的每条回复由程序强制加上称呼，模型绕不过；
+  2. 违禁词在入站就拦（不送模型），出站再兜底一次，支持拼音谐音识别，
+     防止机器人被套话后忘掉规则。
+  配置支持精确词表 + 全拼谐音规则，可分别设置命中后的处理方式。
+author: ktouching
+version: 1.0.0
+repo: https://github.com/ktouching/-.git
+astrbot_version: ">=4.17.0"
+support_platforms:
+  - aiocqhttp
+category: 安全
+tags:
+  - 违禁词
+  - 防火墙
+  - 防诱导
+  - 后处理

@@ -1,14 +1,42 @@
-# astrbot-plugin-helloworld
+# 文字狱
 
-AstrBot 插件模板 / A template plugin for AstrBot plugin feature
+给 AstrBot 加一道**不依赖模型**的硬闸门：违禁词在入站和出站各拦一次，含拼音谐音，防止被诱导后「忘掉规则」。
 
-> [!NOTE]
-> This repo is just a template of [AstrBot](https://github.com/AstrBotDevs/AstrBot) Plugin.
-> 
-> [AstrBot](https://github.com/AstrBotDevs/AstrBot) is an agentic assistant for both personal and group conversations. It can be deployed across dozens of mainstream instant messaging platforms, including QQ, Telegram, Feishu, DingTalk, Slack, LINE, Discord, Matrix, etc. In addition, it provides a reliable and extensible conversational AI infrastructure for individuals, developers, and teams. Whether you need a personal AI companion, an intelligent customer support agent, an automation assistant, or an enterprise knowledge base, AstrBot enables you to quickly build AI applications directly within your existing messaging workflows.
+> 和写在人格里的规则不同：本插件改的是**最终发出去的那条消息**，模型说什么都绕不过去。
 
-# Supports
+作者：（Bilibili）：K_ToucHing_ 
 
-- [AstrBot Repo](https://github.com/AstrBotDevs/AstrBot)
-- [AstrBot Plugin Development Docs (Chinese)](https://docs.astrbot.app/dev/star/plugin-new.html)
-- [AstrBot Plugin Development Docs (English)](https://docs.astrbot.app/en/dev/star/plugin-new.html)
+### 1. 强制称呼
+配置里列出 `QQ号|称呼`，对对应的每条回复开头会由程序加上「称呼，」。
+
+### 2. 违禁词双保险
+- **入站**：接收的消息里出现违禁词（含谐音）就不送模型，直接回复固定话，从源头杜绝被套话。
+- **出站**：模型回复里出现违禁词，整条替换成固定话（或者替换成 `***`，可配置，具体参考插件配置界面）。
+
+### 3. 谐音识别
+配置 `pinyin_patterns`（全拼、无声调），插件会把中文转成拼音再匹配：
+
+```
+你好 -> nihao
+子涵 / 梓涵 / 紫涵 -> zihan
+嘉豪 / 加号 / 佳豪 -> jiahao
+```
+
+## 常见问题
+
+**Q：出站拦截好像从来没触发过？**
+A：正常。入站已经拦住了，模型根本没机会说出违禁词；出站只是兜底。
+
+**Q：群里被人 @ 时也会加称呼吗？**
+A：会，只要发送者在 `address_rules` 里。如果不想要这个行为，把这个用户从规则里删掉。
+
+**Q：会不会误伤正常聊天？**
+A：谐音规则是按「整段汉字转拼音后包含子串」判断，理论上可能误伤。发现误伤就把对应拼音段从 `pinyin_patterns` 里去掉，改用精确词表。
+
+## License
+
+MIT，见 [LICENSE](LICENSE)。
+
+## 更新日志
+
+见 [CHANGELOG.md](CHANGELOG.md)。

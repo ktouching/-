@@ -1,0 +1,46 @@
+{
+  "address_rules": {
+    "type": "text",
+    "description": "格式为「QQ号|称呼」，例：1925069159|主人。对QQ号所对应用户的每条回复都会被强制加上该称呼（注：此项最高级可能优先于个性卡或其他插件，建议设置前先进行排查，避免冲突）",
+    "default": ""
+  },
+  "forbidden_words": {
+    "type": "text",
+    "description": "违禁词，一行一个（也支持逗号分隔）。命中后按下面的策略处理",
+    "default": ""
+  },
+  "pinyin_patterns": {
+    "type": "text",
+    "description": "拼音谐音规则，使用英文逗号分隔，无需进行音节分割，不带声调，例如 ajiweili,xilian。文字里任何一段汉字拼出来的拼音包含这些串就算命中，默认为空",
+    "default": ""
+  },
+  "forbidden_action": {
+    "type": "string",
+    "description": "命中违禁词时：mask项只替换对应违禁词；block项替换整条回复",
+    "default": "mask",
+    "options": [
+      "mask",
+      "block"
+    ]
+  },
+  "block_inbound": {
+    "type": "bool",
+    "description": "关键词识别，识别到关键词自动回复，群聊中回复需自行更改配置文件",
+    "default": true
+  },
+  "inbound_reply": {
+    "type": "string",
+    "description": "入站拦截时回复的话，示例：我喜欢你。默认为此",
+    "default": "我喜欢你"
+  },
+  "outbound_block_reply": {
+    "type": "string",
+    "description": "出站回复命中违禁词时替换的话，示例：这话我不接，默认为此",
+    "default": "这话我不接。"
+  },
+  "mask_with": {
+    "type": "string",
+    "description": "mask 模式下替换成的文字，默认为 ***",
+    "default": "***"
+  }
+}
